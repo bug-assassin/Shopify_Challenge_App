@@ -8,11 +8,14 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class MainActivityViewModel() : ViewModel() {
+class MainActivityViewModel : ViewModel() {
     private val subscriptions: CompositeDisposable = CompositeDisposable()
     private val productsSubscription: MutableLiveData<List<ProductRaw>> = MutableLiveData()
+    val productsSub: LiveData<List<ProductRaw>> = productsSubscription
     private val repo = ApiFactory.create()
-    fun getProductsSubscription(): LiveData<List<ProductRaw>> = productsSubscription
+
+    //TODO Use an in memory cache class instead of this + a local database
+    private var products: List<ProductRaw>? = null
 
     init {
         getAllProducts()
@@ -20,14 +23,26 @@ class MainActivityViewModel() : ViewModel() {
 
     fun search(searchVal: String) {
         //Why shopify api?, why don't you have search?
-        var productSub = Observable.just(productsSubscription.value).filter{ it != null }.flatMapIterable { it }.filter { it.title.contains(searchVal) }.toList().subscribe(productsSubscription::postValue)
+        var productSub = Observable.just(products)
+                .filter{ it != null }
+                .flatMapIterable { it }
+                .filter { it.title.contains(searchVal, ignoreCase = true) }
+                .toList()
+                .subscribe(productsSubscription::postValue)
+
         subscriptions.add(productSub)
     }
     fun getAllProducts() {
-        var productSub = repo.GetProducts(1).subscribeOn(Schedulers.io())
+        if(products != null) {//TODO Get from memory cache + database instead of null check
+            productsSubscription.postValue(products)
+            return
+        }
+
+        var productSub = repo.GetProducts(1, DEFAULT_PROD_FIELDS)
+                .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
                 .map(ProductsRaw::products)
-                .subscribe(productsSubscription::postValue, { Logd(it.toString())})
+                .subscribe({ products = it; productsSubscription.postValue(products) }, { Loge(it.toString())})
         subscriptions.add(productSub)
     }
     override fun onCleared() {

@@ -1,32 +1,61 @@
 package dan.myapptest
 
 import android.arch.lifecycle.Observer
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
 import android.arch.lifecycle.ViewModelProviders
-import android.view.SearchEvent
+import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.Menu
 import android.widget.SearchView
-import kotlinx.android.synthetic.main.activity_main.view.*
 import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var searchView: SearchView
+    lateinit var viewModel: MainActivityViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        title = resources.getString(R.string.mainactivity_title)
 
-        val model = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = ProductsAdapter()
 
-        var searchView = SearchView(this)
-        RxView.fromSearch(searchView)
-            .filter { it.length > 2}
-            .debounce(300, TimeUnit.MILLISECONDS)
-            .doOnComplete { if(searchView.textView.text.isEmpty()) model.getAllProducts() }
-            .subscribe(model::search)
+        viewModel = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
 
-        model.getProductsSubscription().observe(this, Observer {
-            Logd(it.toString())
+        viewModel.productsSub.observe(this, Observer {
+            (recyclerView.adapter as ProductsAdapter).set(it!!)
         })
+
+    }
+
+    private fun initSearch() {
+        RxView.fromSearch(searchView)
+                .filter { it.isNotEmpty() }
+                .distinctUntilChanged()
+                .debounce(300, TimeUnit.MILLISECONDS)
+                .doOnComplete {
+                    Logd("Search value: " + searchView.query.toString())
+
+                    if(searchView.query.isEmpty()) {
+                        viewModel.getAllProducts()
+                    }
+
+                }
+                .subscribe(viewModel::search)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_options_menu, menu)
+        searchView = menu.findItem(R.id.menu_search).actionView as SearchView
+
+        initSearch()
+
+        return true
     }
 }

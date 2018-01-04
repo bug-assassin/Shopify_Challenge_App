@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">MyAppTest</string>
+    <string name="search_title">Product Name</string>
+    <string name="mainactivity_title">Products</string>
+    <string name="detailactivity_title">Product Detail</string>
 </resources>

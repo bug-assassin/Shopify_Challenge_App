@@ -5,7 +5,8 @@ import android.view.View
 import android.widget.SearchView
 import io.reactivex.subjects.BehaviorSubject
 
-fun Logd(message: String) = Log.e("", message)
+fun Logd(message: String) = Log.d("AppMessage", message)
+fun Loge(message: String) = Log.e("AppMessage", message)
 
 object RxView {
     fun fromSearch(searchView: SearchView): BehaviorSubject<String> {
@@ -21,7 +22,12 @@ object RxView {
                 return true
             }
         })
+        searchView.setOnCloseListener {
+            subject.onComplete()
+            return@setOnCloseListener true
+        }
 
         return subject
     }
 }
+val PROD_ID = "PROD_ID"

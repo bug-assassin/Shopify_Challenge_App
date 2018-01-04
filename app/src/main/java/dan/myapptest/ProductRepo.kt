@@ -14,6 +14,7 @@ import retrofit2.http.Query
 data class ProductRaw(val id: Long, val title: String, val body_html: String, val image: ImageRaw)
 data class ImageRaw(val id: Long, val src: String)
 data class ProductsRaw(val products: List<ProductRaw>)
+data class ProductDetailRaw(val product: ProductRaw)
 
 class ProductFields {
     var mData: Array<out String>
@@ -32,7 +33,7 @@ interface ShopifyService {
         fun GetProducts(@Query("page") page: Int, @Query("fields") fields: ProductFields? = null): Single<ProductsRaw>
 
         @GET("admin/products/{id}.json")
-        fun GetProduct(@Path("id") id: Long, @Query("fields") fields: ProductFields? = null): Single<ProductRaw>
+        fun GetProduct(@Path("id") id: Long, @Query("fields") fields: ProductFields? = null): Single<ProductDetailRaw>
 }
 
 //In real app move this to Dagger2 module
