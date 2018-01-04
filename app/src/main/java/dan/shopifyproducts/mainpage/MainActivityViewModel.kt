@@ -1,10 +1,10 @@
-package dan.myapptest
+package dan.shopifyproducts.mainpage
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import dan.shopifyproducts.*
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
@@ -42,7 +42,7 @@ class MainActivityViewModel : ViewModel() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
                 .map(ProductsRaw::products)
-                .subscribe({ products = it; productsSubscription.postValue(products) }, { Loge(it.toString())})
+                .subscribe({ products = it; productsSubscription.postValue(products) }, { Loge(it.toString()) })
         subscriptions.add(productSub)
     }
     override fun onCleared() {

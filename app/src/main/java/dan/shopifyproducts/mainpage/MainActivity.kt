@@ -1,4 +1,4 @@
-package dan.myapptest
+package dan.shopifyproducts.mainpage
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -8,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.widget.SearchView
+import dan.shopifyproducts.Logd
+import dan.shopifyproducts.R
+import dan.shopifyproducts.RxView
 import java.util.concurrent.TimeUnit
 
 

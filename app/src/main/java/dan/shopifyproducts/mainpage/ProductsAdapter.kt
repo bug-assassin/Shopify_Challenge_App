@@ -1,4 +1,4 @@
-package dan.myapptest
+package dan.shopifyproducts.mainpage
 
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
@@ -9,6 +9,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import dan.shopifyproducts.PROD_ID
+import dan.shopifyproducts.ProductRaw
+import dan.shopifyproducts.R
+import dan.shopifyproducts.detailpage.DetailActivity
 
 class ProductsAdapter: RecyclerView.Adapter<ProductView>() {
     var items: List<ProductRaw> = ArrayList()

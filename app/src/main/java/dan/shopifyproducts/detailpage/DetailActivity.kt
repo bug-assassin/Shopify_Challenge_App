@@ -1,4 +1,4 @@
-package dan.myapptest
+package dan.shopifyproducts.detailpage
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -8,6 +8,8 @@ import android.text.Html
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import dan.shopifyproducts.PROD_ID
+import dan.shopifyproducts.R
 
 class DetailActivity : AppCompatActivity() {
     lateinit var viewModel: DetailActivityViewModel

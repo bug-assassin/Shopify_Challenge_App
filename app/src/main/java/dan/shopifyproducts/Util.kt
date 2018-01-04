@@ -1,7 +1,6 @@
-package dan.myapptest
+package dan.shopifyproducts
 
 import android.util.Log
-import android.view.View
 import android.widget.SearchView
 import io.reactivex.subjects.BehaviorSubject
 

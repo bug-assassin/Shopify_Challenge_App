@@ -1,4 +1,4 @@
-package dan.myapptest
+package dan.shopifyproducts
 
 import org.junit.Before
 import org.junit.Test
@@ -8,7 +8,7 @@ import org.junit.Test
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
+class ProductsApiTest {
     lateinit var shopifyService: ShopifyService
     @Before
     fun init() {

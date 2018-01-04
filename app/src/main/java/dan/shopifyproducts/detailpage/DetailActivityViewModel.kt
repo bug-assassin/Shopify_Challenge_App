@@ -1,8 +1,11 @@
-package dan.myapptest
+package dan.shopifyproducts.detailpage
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import dan.shopifyproducts.ApiFactory
+import dan.shopifyproducts.Loge
+import dan.shopifyproducts.ProductRaw
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
