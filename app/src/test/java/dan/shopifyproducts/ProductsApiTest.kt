@@ -20,6 +20,7 @@ class ProductsApiTest {
         val productsQuery = shopifyService.GetProducts(1)
         val result = productsQuery.doOnError { assert(false, { it.message!! }) }.blockingGet()
         print(result.products?.joinToString("\n"))
+        assert(result.products.isNotEmpty())
     }
 
     @Test
@@ -27,13 +28,17 @@ class ProductsApiTest {
         val productsQuery = shopifyService.GetProducts(1, DEFAULT_PROD_FIELDS)
         val result = productsQuery.doOnError { assert(false, { it.message!! }) }.blockingGet()
         print(result.products?.joinToString("\n"))
+        assert(result.products.isNotEmpty())
     }
 
     @Test
     fun GetOneProduct() {
-        val productsQuery = shopifyService.GetProduct(2759137027, DEFAULT_PROD_FIELDS)
+        val prodId = 2759137027
+        val productsQuery = shopifyService.GetProduct(prodId, DEFAULT_PROD_FIELDS)
         val result = productsQuery.doOnError { assert(false, { it.message!! }) }.blockingGet()
         print(result)
+        assert(result != null)
+        assert(result.product.id == prodId)
     }
 
 }
