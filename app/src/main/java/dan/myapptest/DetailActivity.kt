@@ -24,6 +24,8 @@ class DetailActivity : AppCompatActivity() {
         val imgProduct = findViewById<ImageView>(R.id.imgProduct)
         val txtTitle = findViewById<TextView>(R.id.titleProduct)
         val txtDescription = findViewById<TextView>(R.id.descriptionProduct)
+        val txtVendor = findViewById<TextView>(R.id.txtVendor)
+        val txtProductType = findViewById<TextView>(R.id.txtType)
 
         viewModel.productSub.observe(this, Observer {
             it?.let {
@@ -32,6 +34,8 @@ class DetailActivity : AppCompatActivity() {
                         .into(imgProduct)
                 txtTitle.text = it.title
                 txtDescription.text = Html.fromHtml(it.body_html)
+                txtVendor.text = it.vendor
+                txtProductType.text = it.product_type
             }
         })
     }

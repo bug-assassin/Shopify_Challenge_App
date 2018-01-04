@@ -11,7 +11,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-data class ProductRaw(val id: Long, val title: String, val body_html: String, val image: ImageRaw)
+data class ProductRaw(val id: Long, val title: String, val body_html: String, val image: ImageRaw, val vendor: String, val product_type: String)
 data class ImageRaw(val id: Long, val src: String)
 data class ProductsRaw(val products: List<ProductRaw>)
 data class ProductDetailRaw(val product: ProductRaw)
