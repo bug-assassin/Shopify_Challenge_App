@@ -42,12 +42,9 @@ class MainActivity : AppCompatActivity() {
                 .distinctUntilChanged()
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .doOnComplete {
-                    Logd("Search value: " + searchView.query.toString())
-
                     if(searchView.query.isEmpty()) {
                         viewModel.getAllProducts()
                     }
-
                 }
                 .subscribe(viewModel::search)
     }

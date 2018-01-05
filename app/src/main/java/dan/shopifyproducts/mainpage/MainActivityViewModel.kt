@@ -41,7 +41,13 @@ class MainActivityViewModel : ViewModel() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
                 .map(ProductsRaw::products)
-                .subscribe({ products = it; productsSubscription.postValue(products) }, { Loge(it.toString()) })
+                .subscribe({ products = it; productsSubscription.postValue(products) },
+                        {
+                            //TODO Show error to user: https://developer.android.com/topic/libraries/architecture/guide.html#addendum
+                            Loge(it.toString())
+                        })
+
+
         subscriptions.add(productSub)
     }
     override fun onCleared() {
