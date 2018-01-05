@@ -11,10 +11,14 @@ Main Libraries used:
 * Glide (for image loading)
 * Android Livedata (so I don't have to deal with messy activity lifecycle)
 
+<a href="https://github.com/DanSirbu/Shopify_Challenge_App/raw/master/app/build/outputs/apk/debug/app-debug.apk">Download Debug Build</a>
+
 # Video
-<video src="screenshots/screen_recording.mp4" width="100%" controls preload></video>
+<a href="screenshots/screen_recording.mp4">Download</a>
+
+<img src="screenshots/screen_recording.gif" width="48%" controls preload />
 
 # Screenshots
-<img src="screenshots/product_list.png" width="49%">
-<img src="screenshots/search.png" width="49%">
-<img src="screenshots/product_details.png" width="49%">
+<img src="screenshots/product_list.png" width="48%">
+<img src="screenshots/search.png" width="48%">
+<img src="screenshots/product_details.png" width="48%">
