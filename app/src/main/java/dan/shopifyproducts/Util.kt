@@ -1,7 +1,8 @@
 package dan.shopifyproducts
 
+import android.support.v7.widget.SearchView
 import android.util.Log
-import android.widget.SearchView
+import android.view.View
 import io.reactivex.subjects.BehaviorSubject
 
 fun Logd(message: String) = Log.d("AppMessage", message)
@@ -21,10 +22,16 @@ object RxView {
                 return true
             }
         })
-        searchView.setOnCloseListener {
-            subject.onComplete()
-            return@setOnCloseListener true
-        }
+        searchView.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+            override fun onViewAttachedToWindow(v: View?) {
+
+            }
+
+            override fun onViewDetachedFromWindow(v: View?) {
+                subject.onComplete()
+            }
+
+        })
 
         return subject
     }

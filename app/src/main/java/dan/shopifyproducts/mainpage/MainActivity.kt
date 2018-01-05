@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.SearchView
 import android.view.Menu
-import android.widget.SearchView
 import dan.shopifyproducts.Logd
 import dan.shopifyproducts.R
 import dan.shopifyproducts.RxView

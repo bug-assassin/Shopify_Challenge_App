@@ -22,9 +22,8 @@ class MainActivityViewModel : ViewModel() {
     }
 
     fun search(searchVal: String) {
-        //Why shopify api?, why don't you have search?
+        //Shopify api does not support wildcards so here we are
         var productSub = Observable.just(products)
-                .filter{ it != null }
                 .flatMapIterable { it }
                 .filter { it.title.contains(searchVal, ignoreCase = true) }
                 .toList()
